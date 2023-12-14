@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WithOut Camera</title>
+  <style>
+   body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: lightgray;
+    }
+
+    .outer-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin: 20px;
+    }
+
+    .title {
+      margin-bottom: 10px;
+    }
+
+    .main-container {
+      border: 1px solid black;
+      display: flex;
+      background-color: #e5e4e4;
+      flex: 1;
+    }
+
+    .left-side {
+      flex: 1;
+      padding: 20px;
+      border-right: 1px solid black;
+    }
+
+    .right-side {
+      flex: 1;
+      padding: 20px;
+      background-color: skyblue;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .video-container {
+      width: 80%;
+      margin-top: 20px;
+    }
+
+    video {
+      width: 100%;
+      height: auto;
+    }
+
+    .button-container {
+      margin-top: 20px;
+    }
+
+    .inner-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    .inner-table th,
+    .inner-table td {
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    input[type="text"] {
+      width: calc(100% - 28px);
+      padding: 6px;
+      margin-left: 6px;
+      background-color: white;
+    }
+
+    .search-icon {
+      width: 20px;
+      height: 20px;
+      background: url('sss.png') no-repeat right;
+      background-size: contain;
+      display: inline-block;
+      vertical-align: middle;
+      cursor: pointer;
+    }
+
+    .result-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    #qr-code {
+      width: 200px;
+      height: 200px;
+    }
+
+    
+    
+  </style>
+</head>
+<body>
+
+<div class="outer-container">
+  <div class="title">
+    <h2>Cooper Barcode</h2>
+  </div>
+  <button class="query-button">Query</button>
+</div>
+
+<div class="main-container">
+    <div class="left-side">
+        <!-- <h2>Cooper Barcode</h2> -->
+        <table class="inner-table">
+          <tr>
+            <th>Input</th>
+            <td><input type="text" placeholder="Enter input name" class="input-field" data-id="input1"><span class="search-icon" data-id="input1"></span></td>
+          </tr>
+          <tr>
+            <th>Form</th>
+            <td><input type="text" placeholder="Enter input name" class="input-field" data-id="input2"><span class="search-icon" data-id="input2"></span></td>
+          </tr>
+          <tr>
+            <th>Table</th>
+            <td><input type="text" placeholder="Enter input name" class="input-field" data-id="input3"><span class="search-icon" data-id="input3"></span></td>
+          </tr>
+          <tr>
+            <th>List</th>
+            <td><input type="text" placeholder="Enter input name" class="input-field" data-id="input4"><span class="search-icon" data-id="input4"></span></td>
+          </tr>
+          <tr>
+            <th>Action</th>
+            <td><input type="text" placeholder="Enter input name" class="input-field" data-id="input5"><span class="search-icon" data-id="input5"></span></td>
+          </tr>
+          <tr>
+            <th>Field</th>
+            <td><input type="text" placeholder="Enter input name" class="input-field" data-id="input6"><span class="search-icon" data-id="input6"></span></td>
+          </tr>
+          <tr>
+            <th>Group</th>
+            <td><input type="text" placeholder="Enter input name" class="input-field" data-id="input7"><span class="search-icon" data-id="input7"></span></td>
+          </tr>
+        </table>
+      </div>
+    <div class="right-side">
+      <!-- <h3>Scanning input Value Result</h3>
+      <div class="video-container">
+        
+        <video id="video" style="border: 1px solid gray;"></video>
+      </div>
+      
+      <div class="result-container" id="barcodeResult">
+        <!-- <svg id="qr-code"></svg> -->
+      </div> -->
+     
+    </div>
+</div>
+
+
+<script type="text/javascript" src="https://unpkg.com/@zxing/library@latest/umd/index.min.js"></script>
+<script type="text/javascript">
+  window.addEventListener('load', () => {
+    const codeReader = new ZXing.BrowserMultiFormatReader();
+
+    // Get the search icons and attach click event listeners
+    document.querySelectorAll('.search-icon').forEach(icon => {
+      icon.addEventListener('click', () => {
+        const inputId = icon.getAttribute('data-id');
+        const inputValue = document.querySelector(`.input-field[data-id="${inputId}"]`).value;
+
+        if (inputValue.trim() !== '') {
+          // Simulate scanning by displaying the input value as a notification
+          displayScanNotification(inputValue.trim());
+
+          // Clear the input field after scanning
+          document.querySelector(`.input-field[data-id="${inputId}"]`).value = '';
+        } else {
+          alert('Please enter text in the input field to scan.');
+        }
+      });
+    });
+
+    function displayScanNotification(text) {
+      alert(`Input Text Scanned Successfully: ${text}`);
+    }
+  });
+</script>
+
+</body>
+</html>
