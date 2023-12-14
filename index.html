@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>With Camera</title>
+  <style>
+    /* Your CSS styles */
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div id="cameraCheck">
+  Checking camera availability...
+</div>
+
+
+<script>
+  window.addEventListener('DOMContentLoaded', async () => {
+    try {
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      const hasCamera = devices.some(device => device.kind === 'videoinput');
+
+      if (hasCamera) {
+        window.location.href = 'page1.html'
+      } else {
+        window.location.href = 'page2.html'
+      }
+    } catch (error) {
+      console.error('Error detecting camera:', error);
+    }
+  });
+</script>
+
+</body>
+</html>
